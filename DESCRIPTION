@@ -2,8 +2,8 @@ Package: rk.mult.resp
 Type: Package
 Title: An RKWard plugin package for analyzing multiple response sets
         (dichotomies or categories) using the 'expss' library.
-Version: 0.0.1
-Date: 2025-12-17
+Version: 0.0.2
+Date: 2025-12-18
 Author: Alfonso Cano
 Maintainer: Alfonso Cano <alfonso.cano@correo.buap.mx>
 Enhances: rkward

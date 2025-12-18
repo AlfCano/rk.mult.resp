@@ -19,21 +19,29 @@
 		-->
 	</logic>
 	<dialog label="Multiple Response Frequencies">
-		<row id="row_vDDVSDDSTD">
+		<row id="row_vDDDSPSODO">
 			<varselector id="freq_selector" />
-			<column id="clm_tDDVSDDSTD">
+			<column id="clm_tDDDSPSODO">
 				<tabbook>
 					<tab label="Data" id="tab_Data">
-						<column id="clm_vVSDDSTDCC">
-							<varslot id="freq_vars" label="Variables in Set" source="freq_selector" required="true" multi="true" />
-							<frame label="Definition" id="frm_Definitn">
-								<radio id="freq_type" label="Set Type">
-									<option label="Dichotomies (Counted value)" value="dichotomy" checked="true" />
-									<option label="Categories (Multiple columns)" value="category" />
-								</radio>
-								<input label="Counted Value (e.g., 1 or 'Yes')" id="freq_counted_val" initial="1" />
-								<input label="Set Label (Optional)" id="freq_label" initial="Multiple Response Set" />
+						<column id="clm_rDSPSODOFR">
+							<radio id="freq_mode" label="Data Source">
+								<option label="Pre-defined Set (Object)" value="pre" checked="true" />
+								<option label="Define On-the-Fly (Raw Vars)" value="fly" />
+							</radio>
+							<frame label="Option A: Use Existing Set" id="frm_OptnAUES">
+								<varslot id="freq_obj_slot" label="Select Set Object" source="freq_selector" classes="dichotomy category data.frame" />
 							</frame>
+							<frame label="Option B: Define On-the-Fly" id="frm_OptnBDOF">
+								<varslot id="freq_vars" label="Variables in Set" source="freq_selector" multi="true" />
+								<radio id="freq_type" label="Set Type">
+									<option label="Dichotomies" value="dichotomy" checked="true" />
+									<option label="Categories" value="category" />
+								</radio>
+								<input label="Counted Value" id="freq_counted_val" initial="1" />
+								<input label="Set Label" id="freq_label" initial="Set" />
+							</frame>
+							<varslot id="freq_weight" label="Weight Variable (Optional)" source="freq_selector" classes="numeric" />
 						</column>
 					</tab>
 					<tab label="Options" id="tab_Options">

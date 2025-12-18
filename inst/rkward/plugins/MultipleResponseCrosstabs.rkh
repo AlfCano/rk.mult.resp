@@ -18,16 +18,23 @@
 	-->
 	<settings>
 		<caption id="tab_Data" />
-		<setting id="cross_vars">
-		</setting>
 		<setting id="cross_group">
 		</setting>
-		<caption id="frm_SetDfntn" />
+		<setting id="cross_mode">
+		</setting>
+		<caption id="frm_OptnAUES" />
+		<setting id="cross_obj_slot">
+		</setting>
+		<caption id="frm_OptnBDOF" />
+		<setting id="cross_vars">
+		</setting>
 		<setting id="cross_type">
 		</setting>
 		<setting id="cross_counted_val">
 		</setting>
 		<setting id="cross_label">
+		</setting>
+		<setting id="cross_weight">
 		</setting>
 		<caption id="tab_Options" />
 		<setting id="cross_save_obj">

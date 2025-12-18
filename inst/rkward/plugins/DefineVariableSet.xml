@@ -1,0 +1,40 @@
+<!DOCTYPE rkplugin >
+<document>
+	<!--
+		this code was generated using the rkwarddev package.
+	perhaps don't make changes here, but in the rkwarddev script instead!
+	-->
+	<code file="DefineVariableSet.js" />
+	<help file="DefineVariableSet.rkh" />
+	<!--
+		<dependencies>
+		</dependencies>
+	-->
+	<logic>
+		<!--
+			<convert id="!edit!" sources="!edit!" mode="equals" standard="!edit!" />
+		-->
+		<!--
+			<connect governor="!edit!.state" client="!edit!.enabled" />
+		-->
+	</logic>
+	<dialog label="Define Multiple Response Set">
+		<row id="row_vVSDDSTDCC">
+			<varselector id="def_selector" />
+			<column id="clm_vVSDDSTDCC">
+				<varslot id="def_vars" label="Variables in Set" source="def_selector" required="true" multi="true" />
+				<frame label="Definition" id="frm_Definitn">
+					<radio id="def_type" label="Set Type">
+						<option label="Dichotomies (Counted value)" value="dichotomy" checked="true" />
+						<option label="Categories (Multiple columns)" value="category" />
+					</radio>
+					<input label="Counted Value (e.g., 1)" id="def_counted_val" initial="1" />
+					<input label="Set Label" id="def_label" initial="My Response Set" />
+				</frame>
+				<varslot id="def_weight" label="Weight Variable (For Preview/Verification)" source="def_selector" classes="numeric" />
+				<saveobject label="Save Set as" checkable="true" checked="true" initial="my_mrset" id="def_save_obj" />
+				<preview label="Preview" id="prv_Preview" mode="data" />
+			</column>
+		</row>
+	</dialog>
+</document>

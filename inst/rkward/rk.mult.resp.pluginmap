@@ -20,8 +20,8 @@
 		name="rk.mult.resp"
 		shortinfo="An RKWard plugin package for analyzing multiple response sets (dichotomies or categories) using the 'expss' library."
 		longinfo="An RKWard plugin package for analyzing multiple response sets (dichotomies or categories) using the 'expss' library."
-		version="0.0.1"
-		releasedate="2025-12-17"
+		version="0.0.2"
+		releasedate="2025-12-18"
 		url="https://github.com/AlfCano/rk.mult.resp"
 		license="GPL (&gt;= 3)"
 	>
@@ -40,6 +40,13 @@
 	/>
 	<components>
 		<component
+			id="cmp_MltplRspnsFrqncsDfnVrblSt"
+			label="Define Variable Set"
+			type="standard"
+			file="plugins/DefineVariableSet.xml"
+		>
+		</component>
+		<component
 			id="cmp_MltplRspnsFrqncsMltplRspC"
 			label="Multiple Response Crosstabs"
 			type="standard"
@@ -55,6 +62,19 @@
 		</component>
 	</components>
 	<hierarchy>
+		<menu
+			id="analysis"
+			label="Analysis"
+		>
+			<menu
+				id="MultipleResponseexpss"
+				label="Multiple Response (expss)"
+			>
+				<entry
+					component="cmp_MltplRspnsFrqncsDfnVrblSt"
+				/>
+			</menu>
+		</menu>
 		<menu
 			id="analysis"
 			label="Analysis"

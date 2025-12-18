@@ -28,39 +28,50 @@ function preview(){
         };
     }
   
-    var vars = getValue("freq_vars");
-    var type = getValue("freq_type");
-    var val = getValue("freq_counted_val");
-    var lbl = getValue("freq_label");
+    var mode = getValue("freq_mode");
+    var weight = getValue("freq_weight");
+    var cmd = "";
+    var mrset_expr = "";
     
-    var varList = vars.split("\n");
-    var colList = [];
-    var dfName = "";
-    
-    for (var i = 0; i < varList.length; i++) {
-        var p = parseVar(varList[i]);
-        if (i === 0) dfName = p.df;
-        colList.push(p.raw_col); 
-    }
-    
-    var cols_str = "c(\"" + colList.join("\", \"") + "\")";
-    var data_ref = dfName + "[, " + cols_str + "]";
-    
-    var mrset_cmd = "";
-    
-    if (type == "dichotomy") {
-        var val_arg = val;
-        if (isNaN(val)) { val_arg = "\"" + val + "\""; }
-        
-        mrset_cmd = "expss::mrset(" + data_ref + ", method = \"dichotomy\", label = \"" + lbl + "\", number_of_items = " + val_arg + ")";
+    if (mode == "pre") {
+        var obj = getValue("freq_obj_slot");
+        if (obj != "") mrset_expr = obj;
     } else {
-        mrset_cmd = "expss::mrset(" + data_ref + ", method = \"category\", label = \"" + lbl + "\")";
+        var vars = getValue("freq_vars");
+        var type = getValue("freq_type");
+        var val = getValue("freq_counted_val");
+        var lbl = getValue("freq_label");
+        
+        if (vars != "") {
+            var varList = vars.split("\n");
+            var colList = [];
+            var dfName = "";
+            for (var i = 0; i < varList.length; i++) {
+                var p = parseVar(varList[i]);
+                if (i === 0) dfName = p.df;
+                colList.push(p.raw_col); 
+            }
+            var cols_str = "c(\"" + colList.join("\", \"") + "\")";
+            var data_ref = dfName + "[, " + cols_str + "]";
+            
+            if (type == "dichotomy") {
+                var val_arg = val;
+                if (isNaN(val)) { val_arg = "\"" + val + "\""; }
+                mrset_expr = "expss::mrset(" + data_ref + ", method = \"dichotomy\", label = \"" + lbl + "\", number_of_items = " + val_arg + ")";
+            } else {
+                mrset_expr = "expss::mrset(" + data_ref + ", method = \"category\", label = \"" + lbl + "\")";
+            }
+        }
     }
     
-    var cmd = "expss::fre(" + mrset_cmd + ")";
-  
-    echo("preview_data <- " + cmd + "\n");
-  
+    if (mrset_expr != "") {
+        if (weight != "") {
+            cmd = "expss::fre(" + mrset_expr + ", weight = " + weight + ")";
+        } else {
+            cmd = "expss::fre(" + mrset_expr + ")";
+        }
+    }
+  if(cmd != "") echo("preview_data <- " + cmd + "\n");
 }
 
 function preprocess(is_preview){
@@ -103,39 +114,50 @@ function calculate(is_preview){
         };
     }
   
-    var vars = getValue("freq_vars");
-    var type = getValue("freq_type");
-    var val = getValue("freq_counted_val");
-    var lbl = getValue("freq_label");
+    var mode = getValue("freq_mode");
+    var weight = getValue("freq_weight");
+    var cmd = "";
+    var mrset_expr = "";
     
-    var varList = vars.split("\n");
-    var colList = [];
-    var dfName = "";
-    
-    for (var i = 0; i < varList.length; i++) {
-        var p = parseVar(varList[i]);
-        if (i === 0) dfName = p.df;
-        colList.push(p.raw_col); 
-    }
-    
-    var cols_str = "c(\"" + colList.join("\", \"") + "\")";
-    var data_ref = dfName + "[, " + cols_str + "]";
-    
-    var mrset_cmd = "";
-    
-    if (type == "dichotomy") {
-        var val_arg = val;
-        if (isNaN(val)) { val_arg = "\"" + val + "\""; }
-        
-        mrset_cmd = "expss::mrset(" + data_ref + ", method = \"dichotomy\", label = \"" + lbl + "\", number_of_items = " + val_arg + ")";
+    if (mode == "pre") {
+        var obj = getValue("freq_obj_slot");
+        if (obj != "") mrset_expr = obj;
     } else {
-        mrset_cmd = "expss::mrset(" + data_ref + ", method = \"category\", label = \"" + lbl + "\")";
+        var vars = getValue("freq_vars");
+        var type = getValue("freq_type");
+        var val = getValue("freq_counted_val");
+        var lbl = getValue("freq_label");
+        
+        if (vars != "") {
+            var varList = vars.split("\n");
+            var colList = [];
+            var dfName = "";
+            for (var i = 0; i < varList.length; i++) {
+                var p = parseVar(varList[i]);
+                if (i === 0) dfName = p.df;
+                colList.push(p.raw_col); 
+            }
+            var cols_str = "c(\"" + colList.join("\", \"") + "\")";
+            var data_ref = dfName + "[, " + cols_str + "]";
+            
+            if (type == "dichotomy") {
+                var val_arg = val;
+                if (isNaN(val)) { val_arg = "\"" + val + "\""; }
+                mrset_expr = "expss::mrset(" + data_ref + ", method = \"dichotomy\", label = \"" + lbl + "\", number_of_items = " + val_arg + ")";
+            } else {
+                mrset_expr = "expss::mrset(" + data_ref + ", method = \"category\", label = \"" + lbl + "\")";
+            }
+        }
     }
     
-    var cmd = "expss::fre(" + mrset_cmd + ")";
-  
-    echo("mr_freq_table <- " + cmd + "\n");
-  
+    if (mrset_expr != "") {
+        if (weight != "") {
+            cmd = "expss::fre(" + mrset_expr + ", weight = " + weight + ")";
+        } else {
+            cmd = "expss::fre(" + mrset_expr + ")";
+        }
+    }
+  if(cmd != "") { echo("mr_freq_table <- " + cmd + "\n"); } else { echo("stop(\"Please select a set object or variables.\")\n"); }
 }
 
 function printout(is_preview){
@@ -145,9 +167,7 @@ function printout(is_preview){
 	// printout the results
 	if(!is_preview) {
 		new Header(i18n("Multiple Response Frequencies results")).print();	
-	}
-    echo("rk.results(mr_freq_table)\n");
-  
+	}if (typeof is_preview === "undefined" || !is_preview) { echo("rk.results(mr_freq_table)\n"); }
 	if(!is_preview) {
 		//// save result object
 		// read in saveobject variables

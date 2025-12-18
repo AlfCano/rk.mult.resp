@@ -5,7 +5,7 @@
 	perhaps don't make changes here, but in the rkwarddev script instead!
 	-->
 	<title>
-		Multiple Response Frequencies
+		Define Variable Set
 	</title>
 	<summary>
 	</summary>
@@ -17,25 +17,18 @@
 		</section>
 	-->
 	<settings>
-		<caption id="tab_Data" />
-		<setting id="freq_mode">
+		<setting id="def_vars">
 		</setting>
-		<caption id="frm_OptnAUES" />
-		<setting id="freq_obj_slot">
+		<caption id="frm_Definitn" />
+		<setting id="def_type">
 		</setting>
-		<caption id="frm_OptnBDOF" />
-		<setting id="freq_vars">
+		<setting id="def_counted_val">
 		</setting>
-		<setting id="freq_type">
+		<setting id="def_label">
 		</setting>
-		<setting id="freq_counted_val">
+		<setting id="def_weight">
 		</setting>
-		<setting id="freq_label">
-		</setting>
-		<setting id="freq_weight">
-		</setting>
-		<caption id="tab_Options" />
-		<setting id="freq_save_obj">
+		<setting id="def_save_obj">
 		</setting>
 	</settings>
 	<!--

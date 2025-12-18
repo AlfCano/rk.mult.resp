@@ -28,40 +28,51 @@ function preview(){
         };
     }
   
-    var vars = getValue("cross_vars");
+    var mode = getValue("cross_mode");
     var group = getValue("cross_group");
-    var type = getValue("cross_type");
-    var val = getValue("cross_counted_val");
-    var lbl = getValue("cross_label");
+    var weight = getValue("cross_weight");
+    var cmd = "";
+    var mrset_part = "";
     
-    var varList = vars.split("\n");
-    var colList = [];
-    var dfName = "";
-    
-    for (var i = 0; i < varList.length; i++) {
-        var p = parseVar(varList[i]);
-        if (i === 0) dfName = p.df;
-        colList.push(p.raw_col);
-    }
-    
-    var group_p = parseVar(group);
-    
-    var cols_str = "c(\"" + colList.join("\", \"") + "\")";
-    var data_ref = dfName + "[, " + cols_str + "]";
-    
-    var mrset_cmd = "";
-    if (type == "dichotomy") {
-        var val_arg = val;
-        if (isNaN(val)) { val_arg = "\"" + val + "\""; }
-        mrset_cmd = "expss::mrset(" + data_ref + ", method = \"dichotomy\", label = \"" + lbl + "\", number_of_items = " + val_arg + ")";
+    if (mode == "pre") {
+        var obj = getValue("cross_obj_slot");
+        if (obj != "") mrset_part = obj;
     } else {
-        mrset_cmd = "expss::mrset(" + data_ref + ", method = \"category\", label = \"" + lbl + "\")";
+        var vars = getValue("cross_vars");
+        var type = getValue("cross_type");
+        var val = getValue("cross_counted_val");
+        var lbl = getValue("cross_label");
+        
+        if (vars != "") {
+            var varList = vars.split("\n");
+            var colList = [];
+            var dfName = "";
+            for (var i = 0; i < varList.length; i++) {
+                var p = parseVar(varList[i]);
+                if (i === 0) dfName = p.df;
+                colList.push(p.raw_col);
+            }
+            var cols_str = "c(\"" + colList.join("\", \"") + "\")";
+            var data_ref = dfName + "[, " + cols_str + "]";
+            
+            if (type == "dichotomy") {
+                var val_arg = val;
+                if (isNaN(val)) { val_arg = "\"" + val + "\""; }
+                mrset_part = "expss::mrset(" + data_ref + ", method = \"dichotomy\", label = \"" + lbl + "\", number_of_items = " + val_arg + ")";
+            } else {
+                mrset_part = "expss::mrset(" + data_ref + ", method = \"category\", label = \"" + lbl + "\")";
+            }
+        }
     }
     
-    var cmd = "expss::cro_cpct(" + mrset_cmd + ", " + group + ")";
-  
-    echo("preview_data <- " + cmd + "\n");
-  
+    if (mrset_part != "" && group != "") {
+        if (weight != "") {
+            cmd = "expss::cro_cpct(" + mrset_part + ", " + group + ", weight = " + weight + ")";
+        } else {
+            cmd = "expss::cro_cpct(" + mrset_part + ", " + group + ")";
+        }
+    }
+  if(cmd != "") echo("preview_data <- " + cmd + "\n");
 }
 
 function preprocess(is_preview){
@@ -104,40 +115,51 @@ function calculate(is_preview){
         };
     }
   
-    var vars = getValue("cross_vars");
+    var mode = getValue("cross_mode");
     var group = getValue("cross_group");
-    var type = getValue("cross_type");
-    var val = getValue("cross_counted_val");
-    var lbl = getValue("cross_label");
+    var weight = getValue("cross_weight");
+    var cmd = "";
+    var mrset_part = "";
     
-    var varList = vars.split("\n");
-    var colList = [];
-    var dfName = "";
-    
-    for (var i = 0; i < varList.length; i++) {
-        var p = parseVar(varList[i]);
-        if (i === 0) dfName = p.df;
-        colList.push(p.raw_col);
-    }
-    
-    var group_p = parseVar(group);
-    
-    var cols_str = "c(\"" + colList.join("\", \"") + "\")";
-    var data_ref = dfName + "[, " + cols_str + "]";
-    
-    var mrset_cmd = "";
-    if (type == "dichotomy") {
-        var val_arg = val;
-        if (isNaN(val)) { val_arg = "\"" + val + "\""; }
-        mrset_cmd = "expss::mrset(" + data_ref + ", method = \"dichotomy\", label = \"" + lbl + "\", number_of_items = " + val_arg + ")";
+    if (mode == "pre") {
+        var obj = getValue("cross_obj_slot");
+        if (obj != "") mrset_part = obj;
     } else {
-        mrset_cmd = "expss::mrset(" + data_ref + ", method = \"category\", label = \"" + lbl + "\")";
+        var vars = getValue("cross_vars");
+        var type = getValue("cross_type");
+        var val = getValue("cross_counted_val");
+        var lbl = getValue("cross_label");
+        
+        if (vars != "") {
+            var varList = vars.split("\n");
+            var colList = [];
+            var dfName = "";
+            for (var i = 0; i < varList.length; i++) {
+                var p = parseVar(varList[i]);
+                if (i === 0) dfName = p.df;
+                colList.push(p.raw_col);
+            }
+            var cols_str = "c(\"" + colList.join("\", \"") + "\")";
+            var data_ref = dfName + "[, " + cols_str + "]";
+            
+            if (type == "dichotomy") {
+                var val_arg = val;
+                if (isNaN(val)) { val_arg = "\"" + val + "\""; }
+                mrset_part = "expss::mrset(" + data_ref + ", method = \"dichotomy\", label = \"" + lbl + "\", number_of_items = " + val_arg + ")";
+            } else {
+                mrset_part = "expss::mrset(" + data_ref + ", method = \"category\", label = \"" + lbl + "\")";
+            }
+        }
     }
     
-    var cmd = "expss::cro_cpct(" + mrset_cmd + ", " + group + ")";
-  
-    echo("mr_crosstab <- " + cmd + "\n");
-  
+    if (mrset_part != "" && group != "") {
+        if (weight != "") {
+            cmd = "expss::cro_cpct(" + mrset_part + ", " + group + ", weight = " + weight + ")";
+        } else {
+            cmd = "expss::cro_cpct(" + mrset_part + ", " + group + ")";
+        }
+    }
+  if(cmd != "") { echo("mr_crosstab <- " + cmd + "\n"); } else { echo("stop(\"Please select valid Set and Group variables.\")\n"); }
 }
 
 function printout(is_preview){
@@ -147,9 +169,7 @@ function printout(is_preview){
 	// printout the results
 	if(!is_preview) {
 		new Header(i18n("Multiple Response Crosstabs results")).print();	
-	}
-    echo("rk.results(mr_crosstab)\n");
-  
+	}if (typeof is_preview === "undefined" || !is_preview) { echo("rk.results(mr_crosstab)\n"); }
 	if(!is_preview) {
 		//// save result object
 		// read in saveobject variables
