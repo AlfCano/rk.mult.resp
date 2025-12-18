@@ -1,0 +1,50 @@
+<!DOCTYPE rkplugin >
+<document>
+	<!--
+		this code was generated using the rkwarddev package.
+	perhaps don't make changes here, but in the rkwarddev script instead!
+	-->
+	<code file="MultipleResponseCrosstabs.js" />
+	<help file="MultipleResponseCrosstabs.rkh" />
+	<!--
+		<dependencies>
+		</dependencies>
+	-->
+	<logic>
+		<!--
+			<convert id="!edit!" sources="!edit!" mode="equals" standard="!edit!" />
+		-->
+		<!--
+			<connect governor="!edit!.state" client="!edit!.enabled" />
+		-->
+	</logic>
+	<dialog label="Multiple Response Crosstabs">
+		<row id="row_vDDRVTSCVG">
+			<varselector id="cross_selector" />
+			<column id="clm_tDDRVTSCVG">
+				<tabbook>
+					<tab label="Data" id="tab_Data">
+						<column id="clm_vRVTSCVGSD">
+							<varslot id="cross_vars" label="Row Variables (The Set)" source="cross_selector" required="true" multi="true" />
+							<varslot id="cross_group" label="Column Variable (Group)" source="cross_selector" required="true" />
+							<frame label="Set Definition" id="frm_SetDfntn">
+								<radio id="cross_type" label="Set Type">
+									<option label="Dichotomies (Counted value)" value="dichotomy" checked="true" />
+									<option label="Categories (Multiple columns)" value="category" />
+								</radio>
+								<input label="Counted Value" id="cross_counted_val" initial="1" />
+								<input label="Set Label" id="cross_label" initial="Responses" />
+							</frame>
+						</column>
+					</tab>
+					<tab label="Options" id="tab_Options">
+						<column id="clm_svbjctlSPP">
+							<saveobject label="Save table as" checkable="true" initial="mr_crosstab" id="cross_save_obj" />
+							<preview label="Preview" id="prv_Preview" mode="data" />
+						</column>
+					</tab>
+				</tabbook>
+			</column>
+		</row>
+	</dialog>
+</document>

@@ -1,0 +1,97 @@
+<!DOCTYPE
+	rkpluginmap
+>
+<document
+	base_prefix=""
+	namespace="MultipleResponseFrequencies"
+	id="MultipleResponseFrequencies_rkward"
+	po_id="MultipleResponseFrequencies_rkward"
+	priority="medium"
+>
+	<!--
+		this code was generated using the rkwarddev package.
+	perhaps don't make changes here, but in the rkwarddev script instead!
+	-->
+	<!--
+		<dependencies>
+		</dependencies>
+	-->
+	<about
+		name="rk.mult.resp"
+		shortinfo="An RKWard plugin package for analyzing multiple response sets (dichotomies or categories) using the 'expss' library."
+		longinfo="An RKWard plugin package for analyzing multiple response sets (dichotomies or categories) using the 'expss' library."
+		version="0.0.1"
+		releasedate="2025-12-17"
+		url="https://github.com/AlfCano/rk.mult.resp"
+		license="GPL (&gt;= 3)"
+	>
+		<author
+			given="Alfonso"
+			family="Cano"
+			email="alfonso.cano@correo.buap.mx"
+			role="aut, cre"
+		/>
+	</about>
+	<require
+		map="rkward::menu"
+	/>
+	<require
+		map="rkward::embedded"
+	/>
+	<components>
+		<component
+			id="cmp_MltplRspnsFrqncsMltplRspC"
+			label="Multiple Response Crosstabs"
+			type="standard"
+			file="plugins/MultipleResponseCrosstabs.xml"
+		>
+		</component>
+		<component
+			id="cmp_MltplRspnsFrqncsMltplRspF"
+			label="Multiple Response Frequencies"
+			type="standard"
+			file="plugins/MultipleResponseFrequencies.xml"
+		>
+		</component>
+	</components>
+	<hierarchy>
+		<menu
+			id="analysis"
+			label="Analysis"
+		>
+			<menu
+				id="MultipleResponseexpss"
+				label="Multiple Response (expss)"
+			>
+				<entry
+					component="cmp_MltplRspnsFrqncsMltplRspC"
+				/>
+			</menu>
+		</menu>
+		<menu
+			id="analysis"
+			label="Analysis"
+		>
+			<menu
+				id="MultipleResponseexpss"
+				label="Multiple Response (expss)"
+			>
+				<entry
+					component="cmp_MltplRspnsFrqncsMltplRspF"
+				/>
+			</menu>
+		</menu>
+	</hierarchy>
+	<!--
+		<context
+			id="x11"
+		>
+		</context>
+	-->
+	<!--
+		<context
+			id="import"
+		>
+		</context>
+	-->
+</document>

@@ -1,0 +1,49 @@
+<!DOCTYPE rkplugin >
+<document>
+	<!--
+		this code was generated using the rkwarddev package.
+	perhaps don't make changes here, but in the rkwarddev script instead!
+	-->
+	<code file="MultipleResponseFrequencies.js" />
+	<help file="MultipleResponseFrequencies.rkh" />
+	<!--
+		<dependencies>
+		</dependencies>
+	-->
+	<logic>
+		<!--
+			<convert id="!edit!" sources="!edit!" mode="equals" standard="!edit!" />
+		-->
+		<!--
+			<connect governor="!edit!.state" client="!edit!.enabled" />
+		-->
+	</logic>
+	<dialog label="Multiple Response Frequencies">
+		<row id="row_vDDVSDDSTD">
+			<varselector id="freq_selector" />
+			<column id="clm_tDDVSDDSTD">
+				<tabbook>
+					<tab label="Data" id="tab_Data">
+						<column id="clm_vVSDDSTDCC">
+							<varslot id="freq_vars" label="Variables in Set" source="freq_selector" required="true" multi="true" />
+							<frame label="Definition" id="frm_Definitn">
+								<radio id="freq_type" label="Set Type">
+									<option label="Dichotomies (Counted value)" value="dichotomy" checked="true" />
+									<option label="Categories (Multiple columns)" value="category" />
+								</radio>
+								<input label="Counted Value (e.g., 1 or 'Yes')" id="freq_counted_val" initial="1" />
+								<input label="Set Label (Optional)" id="freq_label" initial="Multiple Response Set" />
+							</frame>
+						</column>
+					</tab>
+					<tab label="Options" id="tab_Options">
+						<column id="clm_svbjctlSPP">
+							<saveobject label="Save table as" checkable="true" initial="mr_freq_table" id="freq_save_obj" />
+							<preview label="Preview" id="prv_Preview" mode="data" />
+						</column>
+					</tab>
+				</tabbook>
+			</column>
+		</row>
+	</dialog>
+</document>
