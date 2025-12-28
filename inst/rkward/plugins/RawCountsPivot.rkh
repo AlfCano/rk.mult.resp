@@ -5,7 +5,7 @@
 	perhaps don't make changes here, but in the rkwarddev script instead!
 	-->
 	<title>
-		Multiple Response Crosstabs
+		Raw Counts (Pivot)
 	</title>
 	<summary>
 	</summary>
@@ -17,28 +17,22 @@
 		</section>
 	-->
 	<settings>
-		<caption id="tab_General" />
-		<setting id="cross_group">
+		<setting id="raw_vars">
 		</setting>
-		<setting id="cross_weight">
+		<setting id="raw_group">
 		</setting>
-		<setting id="cross_mode">
+		<setting id="raw_use_labels">
 		</setting>
-		<caption id="tab_SetDfntn" />
-		<caption id="frm_OptionA" />
-		<setting id="cross_obj_slot">
+		<caption id="frm_TblSttst" />
+		<setting id="raw_show_counts">
 		</setting>
-		<caption id="frm_OptionB" />
-		<setting id="cross_vars">
+		<setting id="raw_show_row">
 		</setting>
-		<setting id="cross_type">
+		<setting id="raw_show_col">
 		</setting>
-		<setting id="cross_counted_val">
+		<setting id="raw_show_tab">
 		</setting>
-		<setting id="cross_label">
-		</setting>
-		<caption id="tab_Output" />
-		<setting id="cross_save_obj">
+		<setting id="raw_margins">
 		</setting>
 	</settings>
 	<!--

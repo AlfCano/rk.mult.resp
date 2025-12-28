@@ -1,14 +1,14 @@
 Package: rk.mult.resp
 Type: Package
-Title: An RKWard plugin package for analyzing multiple response sets
-        (dichotomies or categories) using the 'expss' library.
-Version: 0.0.2
-Date: 2025-12-18
+Title: An RKWard plugin package for analyzing multiple response sets.
+        Includes expss analysis and raw count pivoting.
+Version: 0.0.4
+Date: 2025-12-27
 Author: Alfonso Cano
 Maintainer: Alfonso Cano <alfonso.cano@correo.buap.mx>
 Enhances: rkward
 Description: An RKWard plugin package for analyzing multiple response
-        sets (dichotomies or categories) using the 'expss' library.
+        sets. Includes expss analysis and raw count pivoting.
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyLoad: yes

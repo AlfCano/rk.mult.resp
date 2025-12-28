@@ -20,10 +20,10 @@
 		<caption id="tab_Data" />
 		<setting id="freq_mode">
 		</setting>
-		<caption id="frm_OptnAUES" />
+		<caption id="frm_OptionA" />
 		<setting id="freq_obj_slot">
 		</setting>
-		<caption id="frm_OptnBDOF" />
+		<caption id="frm_OptionB" />
 		<setting id="freq_vars">
 		</setting>
 		<setting id="freq_type">

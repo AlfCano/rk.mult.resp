@@ -18,23 +18,28 @@
 			<connect governor="!edit!.state" client="!edit!.enabled" />
 		-->
 	</logic>
-	<dialog label="Multiple Response Crosstabs">
-		<row id="row_vDDCVGRDSP">
+	<dialog label="Multiple Response Crosstabs (%)">
+		<row id="row_vGGCVGWRDS">
 			<varselector id="cross_selector" />
-			<column id="clm_tDDCVGRDSP">
+			<column id="clm_tGGCVGWRDS">
 				<tabbook>
-					<tab label="Data" id="tab_Data">
-						<column id="clm_vCVGRDSPSO">
+					<tab label="General" id="tab_General">
+						<column id="clm_vCVGWRDSPS">
 							<varslot id="cross_group" label="Column Variable (Group)" source="cross_selector" required="true" />
+							<varslot id="cross_weight" label="Weight" source="cross_selector" classes="numeric" />
 							<radio id="cross_mode" label="Row Data Source">
-								<option label="Pre-defined Set (Object)" value="pre" checked="true" />
-								<option label="Define On-the-Fly (Raw Vars)" value="fly" />
+								<option label="Pre-defined Set" value="pre" checked="true" />
+								<option label="Define On-the-Fly" value="fly" />
 							</radio>
-							<frame label="Option A: Use Existing Set" id="frm_OptnAUES">
-								<varslot id="cross_obj_slot" label="Select Set Object" source="cross_selector" classes="dichotomy category data.frame" />
+						</column>
+					</tab>
+					<tab label="Set Definition" id="tab_SetDfntn">
+						<column id="clm_fOAOASOOBO">
+							<frame label="Option A" id="frm_OptionA">
+								<varslot id="cross_obj_slot" label="Set Object" source="cross_selector" classes="dichotomy category data.frame" />
 							</frame>
-							<frame label="Option B: Define On-the-Fly" id="frm_OptnBDOF">
-								<varslot id="cross_vars" label="Row Variables (The Set)" source="cross_selector" multi="true" />
+							<frame label="Option B" id="frm_OptionB">
+								<varslot id="cross_vars" label="Row Variables" source="cross_selector" multi="true" />
 								<radio id="cross_type" label="Set Type">
 									<option label="Dichotomies" value="dichotomy" checked="true" />
 									<option label="Categories" value="category" />
@@ -42,12 +47,11 @@
 								<input label="Counted Value" id="cross_counted_val" initial="1" />
 								<input label="Set Label" id="cross_label" initial="Responses" />
 							</frame>
-							<varslot id="cross_weight" label="Weight Variable (Optional)" source="cross_selector" classes="numeric" />
 						</column>
 					</tab>
-					<tab label="Options" id="tab_Options">
+					<tab label="Output" id="tab_Output">
 						<column id="clm_svbjctlSPP">
-							<saveobject label="Save table as" checkable="true" initial="mr_crosstab" id="cross_save_obj" />
+							<saveobject label="Save table" checkable="true" initial="mr_crosstab" id="cross_save_obj" />
 							<preview label="Preview" id="prv_Preview" mode="data" />
 						</column>
 					</tab>

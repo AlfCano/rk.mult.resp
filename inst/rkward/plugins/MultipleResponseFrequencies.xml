@@ -19,21 +19,21 @@
 		-->
 	</logic>
 	<dialog label="Multiple Response Frequencies">
-		<row id="row_vDDDSPSODO">
+		<row id="row_vDDDSPSDOF">
 			<varselector id="freq_selector" />
-			<column id="clm_tDDDSPSODO">
+			<column id="clm_tDDDSPSDOF">
 				<tabbook>
 					<tab label="Data" id="tab_Data">
-						<column id="clm_rDSPSODOFR">
+						<column id="clm_rDSPSDOFOA">
 							<radio id="freq_mode" label="Data Source">
-								<option label="Pre-defined Set (Object)" value="pre" checked="true" />
-								<option label="Define On-the-Fly (Raw Vars)" value="fly" />
+								<option label="Pre-defined Set" value="pre" checked="true" />
+								<option label="Define On-the-Fly" value="fly" />
 							</radio>
-							<frame label="Option A: Use Existing Set" id="frm_OptnAUES">
+							<frame label="Option A" id="frm_OptionA">
 								<varslot id="freq_obj_slot" label="Select Set Object" source="freq_selector" classes="dichotomy category data.frame" />
 							</frame>
-							<frame label="Option B: Define On-the-Fly" id="frm_OptnBDOF">
-								<varslot id="freq_vars" label="Variables in Set" source="freq_selector" multi="true" />
+							<frame label="Option B" id="frm_OptionB">
+								<varslot id="freq_vars" label="Variables" source="freq_selector" multi="true" />
 								<radio id="freq_type" label="Set Type">
 									<option label="Dichotomies" value="dichotomy" checked="true" />
 									<option label="Categories" value="category" />
@@ -41,12 +41,12 @@
 								<input label="Counted Value" id="freq_counted_val" initial="1" />
 								<input label="Set Label" id="freq_label" initial="Set" />
 							</frame>
-							<varslot id="freq_weight" label="Weight Variable (Optional)" source="freq_selector" classes="numeric" />
+							<varslot id="freq_weight" label="Weight" source="freq_selector" classes="numeric" />
 						</column>
 					</tab>
 					<tab label="Options" id="tab_Options">
 						<column id="clm_svbjctlSPP">
-							<saveobject label="Save table as" checkable="true" initial="mr_freq_table" id="freq_save_obj" />
+							<saveobject label="Save table" checkable="true" initial="mr_freq_table" id="freq_save_obj" />
 							<preview label="Preview" id="prv_Preview" mode="data" />
 						</column>
 					</tab>

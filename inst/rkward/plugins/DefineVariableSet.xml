@@ -28,10 +28,10 @@
 						<option label="Dichotomies (Counted value)" value="dichotomy" checked="true" />
 						<option label="Categories (Multiple columns)" value="category" />
 					</radio>
-					<input label="Counted Value (e.g., 1)" id="def_counted_val" initial="1" />
+					<input label="Counted Value" id="def_counted_val" initial="1" />
 					<input label="Set Label" id="def_label" initial="My Response Set" />
 				</frame>
-				<varslot id="def_weight" label="Weight Variable (For Preview/Verification)" source="def_selector" classes="numeric" />
+				<varslot id="def_weight" label="Weight (Preview)" source="def_selector" classes="numeric" />
 				<saveobject label="Save Set as" checkable="true" checked="true" initial="my_mrset" id="def_save_obj" />
 				<preview label="Preview" id="prv_Preview" mode="data" />
 			</column>

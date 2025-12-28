@@ -2,76 +2,9 @@
 // perhaps don't make changes here, but in the rkwarddev script instead!
 
 function preview(){
-	
-    function parseVar(fullPath) {
-        if (!fullPath) return {df: '', col: '', raw_col: ''};
-        
-        var df = '';
-        var raw_col = '';
-        
-        if (fullPath.indexOf('[[') > -1) {
-            var parts = fullPath.split('[[');
-            df = parts[0];
-            var inner = parts[1].replace(']]', '');
-            raw_col = inner.replace(/["']/g, ''); 
-        } else if (fullPath.indexOf('$') > -1) {
-            var parts = fullPath.split('$');
-            df = parts[0];
-            raw_col = parts[1];
-        } else {
-            raw_col = fullPath;
-        }
-        return { 
-            df: df, 
-            col: '\"' + raw_col + '\"', 
-            raw_col: raw_col 
-        };
-    }
-  
-    var mode = getValue("freq_mode");
-    var weight = getValue("freq_weight");
-    var cmd = "";
-    var mrset_expr = "";
-    
-    if (mode == "pre") {
-        var obj = getValue("freq_obj_slot");
-        if (obj != "") mrset_expr = obj;
-    } else {
-        var vars = getValue("freq_vars");
-        var type = getValue("freq_type");
-        var val = getValue("freq_counted_val");
-        var lbl = getValue("freq_label");
-        
-        if (vars != "") {
-            var varList = vars.split("\n");
-            var colList = [];
-            var dfName = "";
-            for (var i = 0; i < varList.length; i++) {
-                var p = parseVar(varList[i]);
-                if (i === 0) dfName = p.df;
-                colList.push(p.raw_col); 
-            }
-            var cols_str = "c(\"" + colList.join("\", \"") + "\")";
-            var data_ref = dfName + "[, " + cols_str + "]";
-            
-            if (type == "dichotomy") {
-                var val_arg = val;
-                if (isNaN(val)) { val_arg = "\"" + val + "\""; }
-                mrset_expr = "expss::mrset(" + data_ref + ", method = \"dichotomy\", label = \"" + lbl + "\", number_of_items = " + val_arg + ")";
-            } else {
-                mrset_expr = "expss::mrset(" + data_ref + ", method = \"category\", label = \"" + lbl + "\")";
-            }
-        }
-    }
-    
-    if (mrset_expr != "") {
-        if (weight != "") {
-            cmd = "expss::fre(" + mrset_expr + ", weight = " + weight + ")";
-        } else {
-            cmd = "expss::fre(" + mrset_expr + ")";
-        }
-    }
-  if(cmd != "") echo("preview_data <- " + cmd + "\n");
+	preprocess(true);
+	calculate(true);
+	printout(true);
 }
 
 function preprocess(is_preview){
@@ -91,15 +24,13 @@ function calculate(is_preview){
 
     function parseVar(fullPath) {
         if (!fullPath) return {df: '', col: '', raw_col: ''};
-        
         var df = '';
         var raw_col = '';
-        
         if (fullPath.indexOf('[[') > -1) {
             var parts = fullPath.split('[[');
             df = parts[0];
             var inner = parts[1].replace(']]', '');
-            raw_col = inner.replace(/["']/g, ''); 
+            raw_col = inner.replace(/["']/g, '');
         } else if (fullPath.indexOf('$') > -1) {
             var parts = fullPath.split('$');
             df = parts[0];
@@ -107,57 +38,39 @@ function calculate(is_preview){
         } else {
             raw_col = fullPath;
         }
-        return { 
-            df: df, 
-            col: '\"' + raw_col + '\"', 
-            raw_col: raw_col 
-        };
+        return { df: df, col: '\"' + raw_col + '\"', raw_col: raw_col };
+    }
+
+    function generateLabelingCode(varList) {
+        var code = '';
+        for (var i = 0; i < varList.length; i++) {
+             var p = parseVar(varList[i]);
+             code += 'lbl <- rk.get.label(' + varList[i] + ')\n';
+             code += 'if(is.null(lbl) || lbl == "") lbl <- "' + p.raw_col + '"\n';
+             code += 'expss::var_lab(df_temp[[' + p.col + ']]) <- lbl\n';
+        }
+        return code;
     }
   
-    var mode = getValue("freq_mode");
-    var weight = getValue("freq_weight");
-    var cmd = "";
-    var mrset_expr = "";
-    
-    if (mode == "pre") {
-        var obj = getValue("freq_obj_slot");
-        if (obj != "") mrset_expr = obj;
-    } else {
-        var vars = getValue("freq_vars");
-        var type = getValue("freq_type");
-        var val = getValue("freq_counted_val");
-        var lbl = getValue("freq_label");
-        
+    var mode = getValue("freq_mode"); var weight = getValue("freq_weight"); var cmd = ""; var mrset_expr = "";
+    if (mode == "pre") { var obj = getValue("freq_obj_slot"); if (obj != "") mrset_expr = obj; } else {
+        var vars = getValue("freq_vars"); var type = getValue("freq_type"); var val = getValue("freq_counted_val"); var lbl = getValue("freq_label");
         if (vars != "") {
-            var varList = vars.split("\n");
-            var colList = [];
-            var dfName = "";
-            for (var i = 0; i < varList.length; i++) {
-                var p = parseVar(varList[i]);
-                if (i === 0) dfName = p.df;
-                colList.push(p.raw_col); 
-            }
+            var varList = vars.split("\n"); var colList = []; var dfName = "";
+            for (var i = 0; i < varList.length; i++) { var p = parseVar(varList[i]); if (i === 0) dfName = p.df; colList.push(p.raw_col); }
             var cols_str = "c(\"" + colList.join("\", \"") + "\")";
-            var data_ref = dfName + "[, " + cols_str + "]";
-            
+            echo("df_temp <- " + dfName + "[, " + cols_str + "]\n");
+            echo(generateLabelingCode(varList));
             if (type == "dichotomy") {
                 var val_arg = val;
-                if (isNaN(val)) { val_arg = "\"" + val + "\""; }
-                mrset_expr = "expss::mrset(" + data_ref + ", method = \"dichotomy\", label = \"" + lbl + "\", number_of_items = " + val_arg + ")";
-            } else {
-                mrset_expr = "expss::mrset(" + data_ref + ", method = \"category\", label = \"" + lbl + "\")";
-            }
+                if (isNaN(val)) { if (val.indexOf("$") > -1 || val.indexOf("[[") > -1) { val_arg = val; } else { val_arg = "\"" + val + "\""; } }
+                echo("for (col in names(df_temp)) { l <- expss::var_lab(df_temp[[col]]); df_temp[[col]] <- ifelse(df_temp[[col]] == " + val_arg + ", l, NA) }\n");
+                mrset_expr = "expss::mrset(df_temp, method = \"category\", label = \"" + lbl + "\")";
+            } else { mrset_expr = "expss::mrset(df_temp, method = \"category\", label = \"" + lbl + "\")"; }
         }
     }
-    
-    if (mrset_expr != "") {
-        if (weight != "") {
-            cmd = "expss::fre(" + mrset_expr + ", weight = " + weight + ")";
-        } else {
-            cmd = "expss::fre(" + mrset_expr + ")";
-        }
-    }
-  if(cmd != "") { echo("mr_freq_table <- " + cmd + "\n"); } else { echo("stop(\"Please select a set object or variables.\")\n"); }
+    if (mrset_expr != "") { if (weight != "") { cmd = "expss::fre(" + mrset_expr + ", weight = " + weight + ")"; } else { cmd = "expss::fre(" + mrset_expr + ")"; } }
+  if(cmd != "") { echo("mr_freq_table <- " + cmd + "\n"); } else { echo("stop(\"Please select vars.\")\n"); }
 }
 
 function printout(is_preview){

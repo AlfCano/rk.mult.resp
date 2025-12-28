@@ -18,10 +18,10 @@
 	-->
 	<about
 		name="rk.mult.resp"
-		shortinfo="An RKWard plugin package for analyzing multiple response sets (dichotomies or categories) using the 'expss' library."
-		longinfo="An RKWard plugin package for analyzing multiple response sets (dichotomies or categories) using the 'expss' library."
-		version="0.0.2"
-		releasedate="2025-12-18"
+		shortinfo="An RKWard plugin package for analyzing multiple response sets. Includes expss analysis and raw count pivoting."
+		longinfo="An RKWard plugin package for analyzing multiple response sets. Includes expss analysis and raw count pivoting."
+		version="0.0.4"
+		releasedate="2025-12-27"
 		url="https://github.com/AlfCano/rk.mult.resp"
 		license="GPL (&gt;= 3)"
 	>
@@ -51,6 +51,13 @@
 			label="Multiple Response Crosstabs"
 			type="standard"
 			file="plugins/MultipleResponseCrosstabs.xml"
+		>
+		</component>
+		<component
+			id="cmp_MltplRspnsFrqncsRwCntsPvt"
+			label="Raw Counts (Pivot)"
+			type="standard"
+			file="plugins/RawCountsPivot.xml"
 		>
 		</component>
 		<component
@@ -85,6 +92,19 @@
 			>
 				<entry
 					component="cmp_MltplRspnsFrqncsMltplRspC"
+				/>
+			</menu>
+		</menu>
+		<menu
+			id="analysis"
+			label="Analysis"
+		>
+			<menu
+				id="MultipleResponseexpss"
+				label="Multiple Response (expss)"
+			>
+				<entry
+					component="cmp_MltplRspnsFrqncsRwCntsPvt"
 				/>
 			</menu>
 		</menu>

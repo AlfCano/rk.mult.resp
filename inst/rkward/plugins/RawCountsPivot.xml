@@ -1,0 +1,39 @@
+<!DOCTYPE rkplugin >
+<document>
+	<!--
+		this code was generated using the rkwarddev package.
+	perhaps don't make changes here, but in the rkwarddev script instead!
+	-->
+	<code file="RawCountsPivot.js" />
+	<help file="RawCountsPivot.rkh" />
+	<!--
+		<dependencies>
+		</dependencies>
+	-->
+	<logic>
+		<!--
+			<convert id="!edit!" sources="!edit!" mode="equals" standard="!edit!" />
+		-->
+		<!--
+			<connect governor="!edit!.state" client="!edit!.enabled" />
+		-->
+	</logic>
+	<dialog label="Raw Counts (Pivot)">
+		<row id="row_vRVGVURKWL">
+			<varselector id="raw_selector" />
+			<column id="clm_vRVGVURKWL">
+				<varslot id="raw_vars" label="Response Variables" source="raw_selector" required="true" multi="true" />
+				<varslot id="raw_group" label="Grouping Variable" source="raw_selector" required="true" />
+				<checkbox id="raw_use_labels" label="Use RKWard Labels instead of variable names" value="1" checked="true" />
+				<frame label="Table Statistics" id="frm_TblSttst">
+					<checkbox id="raw_show_counts" label="Show Counts" value="1" checked="true" />
+					<checkbox id="raw_show_row" label="Show Row %" value="1" />
+					<checkbox id="raw_show_col" label="Show Column %" value="1" />
+					<checkbox id="raw_show_tab" label="Show Table %" value="1" />
+					<checkbox id="raw_margins" label="Add Sum Margins" value="1" checked="true" />
+				</frame>
+				<preview label="Preview" id="prv_Preview" mode="data" />
+			</column>
+		</row>
+	</dialog>
+</document>
